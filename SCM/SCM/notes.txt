@@ -1,0 +1,10 @@
+Steps to OAuth2
+1. OAuth2 Client -> add this dependency
+2. client (Google, facebook, GitHub) -> client id and client Secrect key
+3. Add the oAuth login configuration in securityConfig
+4. login page/login and SuccessHandler
+5. if in SuccessHandler we are getting data then save it to database
+    before redirecting
+
+//for google login icon link ->oauth2/authorization/google
+for GitHub -> oauth2/authorization/github

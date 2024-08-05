@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html 
+
+class="light"
+lang="en"
+xmlns:th="http://www.thymeleaf.org"
+th:fragment="parent(content,title, script)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-th-replace="${title}"></title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" data-th-href="@{'/css/output.css'}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  </head>
+<body class="dark:bg-gray-900 dark:text-white">
+    <!-- common header -->
+     
+     <div th:if="${loggedUser}">
+      <!-- user top nav bar -->
+      <div th:replace="~{user/usernavbar :: usernavbar}"></div>
+     </div>
+     
+     <!-- common nav bar -->
+     <div th:unless="${loggedUser}">
+      <div th:replace="~{navbar :: navbar}" ></div>
+     </div>
+    <!-- main content -->
+     <section class="p-4" data-th-replace="${content}"></section>
+     <!-- footer -->
+      <footer class="p-4">
+        <!-- <h3>Footer</h3>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate, maxime?</p> -->
+      </footer>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+    <script data-th-src="@{'/js/script.js'}"></script>
+    <script data-th-replace="${script}"></script>
+  </body>
+</html>

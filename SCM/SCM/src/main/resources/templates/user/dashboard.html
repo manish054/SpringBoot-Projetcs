@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-th-text="${loggedUser.name}">Dashboard</title>
+</head>
+<body>
+    <div id="content">
+        <div th:if="${loggedUser}">
+            <div th:replace="~{user/sidenavbar :: sidenavbar}" ></div>
+        </div>
+        <div class="pl-16 md:pl-64 pt-20">
+            <div class="flex flex-col justify-center items-center">
+                <h1>Dashboard</h1>
+                <p data-th-text="${loggedUser.name}"></p>
+                <p data-th-text="${loggedUser.emailId}"></p>
+                <p data-th-text="${loggedUser.about}"></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        console.log("DashBoard");
+    </script>
+    <script data-th-src="@{'/js/admin.js'}"></script>
+</body>
+</html>

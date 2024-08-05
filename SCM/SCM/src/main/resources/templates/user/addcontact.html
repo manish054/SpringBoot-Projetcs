@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Contact</title>
+</head>
+
+<body>
+    <div id="content">
+        <div th:if="${loggedUser}">
+            <div th:replace="~{user/sidenavbar :: sidenavbar}"></div>
+        </div>
+        <div class="pl-16 md:pl-64 pt-20">
+            <div class="grid grid-cols-12">
+                <div class="col-span-3"></div>
+                <div class="col-span-12 md:col-span-6">
+                    <div
+                        class="card block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                        <div data-th-replace="~{message :: message-box}"></div>
+                        <div class="flex justify-center items-center"> 
+                            <h3>Create New Contact</h3></div>
+                        <form class="space-y-4 md:space-y-1 " 
+                        action="" 
+                        method="post"
+                        enctype="multipart/form-data"
+                        data-th-object="${contactForm}">
+                            <div>
+                                <label for="name"
+                                    class="block mb-0.6 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                <input type="text" data-th-field="*{name}"
+                                    class="block p-1.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                    required="" autocomplete="off">
+                            </div>
+                            <p class="text-red-500"
+                            data-th-if="${#fields.hasErrors('name')}"
+                            data-th-errors="*{name}">Invalid Name</p>
+                            <div>
+                                <label for="contactNum"
+                                    class="block mb-0.6 text-sm font-medium text-gray-900 dark:text-white">Contact
+                                    Number</label>
+                                <input type="number" data-th-field="*{contactNum}"
+                                    class="block p-1.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                    required="">
+                            </div>
+                            <div>
+                                <label for="email"
+                                    class="block mb-0.6 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                <input type="email" data-th-field="*{email}"
+                                    class="block p-1.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                    required="" autocomplete="off">
+                            </div>
+                            <div>
+                                <label for="address"
+                                    class="block mb-0.6 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                                <input type="text" data-th-field="*{address}"
+                                    class="block p-1.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                    required="" autocomplete="off">
+                            </div>
+                            <div>
+                                <label for="about"
+                                    class="block mb-0.6 text-sm font-medium text-gray-900 dark:text-white">About Your
+                                    Friend</label>
+                                <textarea rows="3" data-th-field="*{about}"
+                                    class="block p-1.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                    placeholder="Write here..."></textarea>
+                            </div>
+                            <div class="flex space-x-3">
+                                <div class="w-full">
+                                    <label for="website"
+                                        class="block mb-0.6 text-sm font-medium text-gray-900 dark:text-white">Portfolio
+                                        Website</label>
+                                    <input type="text" data-th-field="*{website}"
+                                        class="block p-1.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                        placeholder="If Any" >
+                                </div>
+                                <div class="w-full">
+                                    <label for="linkedIn"
+                                        class="block mb-0.6 text-sm font-medium text-gray-900 dark:text-white">LinkedIn
+                                        Profile</label>
+                                    <input type="text" data-th-field="*{linkedIn}"
+                                        class="block p-1.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                        placeholder="" >
+                                </div>
+                            </div>
+                            <div>
+                                <label for="profilePic"  
+                                class="block mb-0.6 text-sm font-medium text-gray-900 dark:text-white"
+                                    >Contact's Profile Image</label>
+                                <input id="image_file_input"
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                     type="file" data-th-field="*{profilePic}">
+                            
+                                     <img
+                                     class="max-h-52 mx-auto rounded-lg shadow m-3"
+                                     src=""
+                                     id="upload_image_preview"
+                                     alt=""
+                                   />
+                                    </div>
+
+                            <div class="flex items-center mb-2">
+                                <input id="favourite" type="checkbox" value="" data-th-field="*{favourite}"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="favourite"
+                                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Favourite Contact
+                                    ?</label>
+                            </div>
+                            <div class="flex flex-col mb-2">
+                                <button type="submit"
+                                    class="w-full text-black hover:text-green-400 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-1 text-center dark:text-white dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-green-800">Create</button>
+                            </div>
+                        </form> 
+               
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        console.log("Add Contact");
+    </script>
+    <script data-th-src="@{'/js/admin.js'}"></script>
+</body>
+
+</html>

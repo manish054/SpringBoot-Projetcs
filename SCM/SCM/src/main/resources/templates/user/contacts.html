@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en"
+th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-th-text="${loggedUser.name}">Contacts</title>
+</head>
+<body>
+    <div id="content">
+        <div th:if="${loggedUser}">
+            <div th:replace="~{user/sidenavbar :: sidenavbar}" ></div>
+        </div>
+        <div class="pl-16 md:pl-64 pt-20">
+            <div>
+                <h1 class="text-center text-3xl">All Contacts</h1>
+            <div>
+              <div class="mt-4 p-6">
+                <div class=" overflow-x-auto shadow-md sm:rounded-lg">
+                    <div class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
+                        <label for="table-search" class="sr-only">Search</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                </svg>
+                            </div>
+                            <input type="text" id="table-search-users" class="block p-2 px-10 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Contacts">
+                        </div>
+                    </div>
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-14 py-3">
+                                    Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Contact Number
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Connect
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Favourite
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody th:each="contact :${contacts}">
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <th scope="row" class="flex items-center px-6 py-2 text-gray-900 whitespace-nowrap dark:text-white">
+                                    <img class="w-10 h-10 rounded-full" data-th-src="${contact.pic}" alt="Jese image">
+                                    <div class="ps-3">
+                                        <div class="text-base font-semibold" data-th-text="${contact.name}"></div>
+                                        <div class="font-normal text-gray-500" data-th-text="${contact.emailId}"></div>
+                                    </div>  
+                                </th>
+                                <td class="px-6 py-2" data-th-text="${contact.phNum}"></td>
+                                <td class="px-6 py-2">
+                                    <div class="flex flex-col items-start">
+                                        <!-- <div class="flex flex-row">
+                                            <div><i class="fa-solid fa-globe px-2 text-blue-300" ></i></div>
+                                            <div> <a data-th-href="${contact.websiteLink}"> <p data-th-text="${contact.websiteLink}"></p></a></div>
+                                        </div>
+                                        <div class="flex flex-row">
+                                            <div><i class="fa-brands fa-linkedin px-2 text-blue-300"></i></i></div>
+                                            <div> <a data-th-href="${contact.linkedInLink}"> <p data-th-text="${contact.linkedInLink}"></p></a></div>
+                                        </div> -->
+                                        <div class="flex flex-row items-center">
+                                            <div><p data-th-if="${contact.websiteLink != null}"><a data-th-href="${contact.websiteLink}" target="_blank"><i class="fa-solid fa-globe  w-4 h-4 px-3 text-blue-500 hover:text-yellow-300" ></i></a></p>
+                                                <p data-th-if="${contact.websiteLink == null}"><i class="fa-solid fa-globe w-4 h-4 px-3 text-grey-500" ></i></p>
+                                            </div>
+                                            <div>
+                                                <p data-th-if="${contact.linkedInLink != null}"><a data-th-href="${contact.linkedInLink}" target="_blank"><i class="fa-brands fa-linkedin w-4 h-4 px-3 text-blue-500 hover:text-yellow-300"></i></a></p>
+                                                <p data-th-if="${contact.linkedInLink == null}"><i class="fa-brands fa-linkedin w-4 h-4 px-3 text-grey-500"></i></p>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center">
+                                        <div data-th-if="${contact.favourite}"><i class="fa-solid fa-star text-yellow-400 px-5"></i></div>
+                                        <div data-th-unless="${contact.favourite}"><i class="fa-regular fa-star px-5"></i></div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="fa-regular fa-pen-to-square text-green-400  px-2 hover:text-yellow-300"></i></a>
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="fa-solid fa-trash-can text-green-400 px-2 hover:text-yellow-300"></i></a>
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="fa-solid fa-eye text-green-400 hover:text-yellow-300"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="flex justify-end items-end mt-5 pr-5">
+                        <nav aria-label="Page navigation example">
+                            <ul class="inline-flex -space-x-px text-sm">
+                              <li>
+                                <a href="@{'contacts?page=1'}" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                              </li>
+                              <li data-th-each="index:${#numbers.sequence(0, contacts.totalPages-1)}">
+                                <a data-th-href="@{'contacts?page=' + ${index+1}}" data-th-if="${index} == 0" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                                <a data-th-href="@{'contacts?page=' + ${index+1}}" data-th-if="${index} != totalPages-1" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"><span data-th-text="${index + 1}"></span></a> 
+                            
+                              <li>
+                                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                              </li>
+                            </ul>
+                          </nav>
+                    </div>
+                </div>
+              </div>      
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        console.log("Contacts");
+    </script>
+    <script data-th-src="@{'/js/admin.js'}"></script>
+</body>
+</html>

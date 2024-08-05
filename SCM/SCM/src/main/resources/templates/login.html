@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+th:replace="~{base :: parent(~{::#content},~{::title}, ~{::script})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <div id="content">
+        <section class="bg-gray-50 dark:bg-gray-900">
+            <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+                <a href="#" class="flex items-center mb-3 text-2xl font-semibold text-gray-900 dark:text-white">
+                    <img class="w-8 h-8 mr-2" src="images/telephone-directory.png" alt="logo">
+                    Smart Contact Manager    
+                </a>
+                <div class="w-96 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                    <div class="p-3 space-y-1 md:space-y-6 sm:p-8">
+                        <p class="my-2">Store contacts on cloud</p>
+                        <h1 class="text-xl flex justify-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                           Login
+                        </h1>
+                        
+                        
+                        <div class="text-red-600 text-center" th:if="${param.error}">Invalid User or Password</div>
+                        <div class="text-green-600 text-center my-2" th:if="${param.logout}">Logged out</div>
+                        <form class="space-y-4 md:space-y-6" method="post"
+                        data-th-action="@{/authenticate}" 
+                        >
+                            <div>
+                                <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">User</label>
+                                <input type="email" name="email" id="email" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="name@company.com" required="">
+                            </div>
+                            <div class="flext flex-col">
+                                <label for="password" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
+                                <input type="password" name="password" id="password" placeholder="••••••••" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" required="">
+                            </div>
+                            <div class="flex flex-col">
+                                <button type="submit" class="w-full text-gray-50 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-1 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-green-800">Login</button>
+                            </div>
+                            <div class="flex justify-center space-x-5">
+                                <a  data-th-href="@{'/oauth2/authorization/google'}">
+                                    <img src="images/google-symbol.png" class="h-8" alt="Flowbite Logo" />
+                                </a>
+                                <a  data-th-href="@{'/oauth2/authorization/github'}">
+                                    <img src="images/github.png" class="h-8" alt="Flowbite Logo" />
+                                </a>
+                                <a  data-th-href="@{'/oauth2/authorization/facebook'}">
+                                    <img src="images/facebook.png" class="h-8" alt="Flowbite Logo" />
+                                </a>
+                            </div>
+                            <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                                Don't have account? <a href="/signup" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up here</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+          </section>
+    </div>
+    <script>
+        console.log("Login");
+    </script>
+</body>
+</html>
