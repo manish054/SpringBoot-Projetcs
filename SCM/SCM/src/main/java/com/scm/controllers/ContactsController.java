@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,5 +72,13 @@ public class ContactsController {
         ResponseEntity<Object> contacts = contactService.getContacts(useremail, page, size, sortBy, direction);
         model.addAttribute("contacts", contacts.getBody());
         return "user/contacts";
+    }
+
+    //search api
+    @GetMapping("/search")
+    public String search(@PathVariable String field, @PathVariable String keyword){
+        System.out.println("***field***"+field);
+        System.out.println("***keyword***"+keyword);
+        return "user/search";
     }
 }
