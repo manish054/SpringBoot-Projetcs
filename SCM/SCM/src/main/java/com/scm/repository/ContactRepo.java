@@ -15,10 +15,10 @@ public interface ContactRepo extends JpaRepository<Contact, Integer> {
 
     Page<Contact> findByUser(User user, Pageable pageable);
 
-    List<Contact> findByName(String name);
-    List<Contact> findByEmailId(String emailId);
-    List<Contact> findByPhNum(String phNum);
-    
+    List<Contact> findByNameContaining(String name);
+    List<Contact> findByEmailIdContaining(String emailId);
+    List<Contact> findByPhNumContaining(String phNum);
+
     // @Query("SELECT c FROM Contact c WHERE c.user.id :=userId")
     // List<Contact> findByUserId(@Param("userId") int userId);
 

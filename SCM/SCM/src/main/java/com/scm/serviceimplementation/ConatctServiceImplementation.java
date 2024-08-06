@@ -117,14 +117,14 @@ public class ConatctServiceImplementation implements ContactService{
     public ResponseEntity<Object> search(String field, String keyword) {
         List<Contact> contacts = null;
         if(field.equals(AppConstants.SEARCH_BY_EMAIL)){
-           contacts = contactRepo.findByEmailId(keyword);
+           contacts = contactRepo.findByEmailIdContaining(keyword);
            return new ResponseEntity<>(contacts, HttpStatus.FOUND);
         }
         if(field.equals(AppConstants.SEARCH_BY_NAME)){
-            contacts = contactRepo.findByName(keyword);
+            contacts = contactRepo.findByNameContaining(keyword);
         }
         if(field.equals(AppConstants.SEARCH_BY_CONTACT)){
-            contacts = contactRepo.findByPhNum(keyword);
+            contacts = contactRepo.findByPhNumContaining(keyword);
         }
 
         if(contacts != null){

@@ -78,8 +78,12 @@ public class ContactsController {
     public String search(Model model, @RequestParam String field, @RequestParam String keyword){
         System.out.println("***field***"+field);
         System.out.println("***keyword***"+keyword);
+        if(field==null || keyword ==null){
+            return "redirect:/user/contacts/search";
+        }
+        
         ResponseEntity<Object> contacts = contactService.search(field, keyword);
-        System.out.println("****Object****"+field+" --- "+keyword+" *****"+contacts.getBody().toString());
+        System.out.println("****Object****"+field+" --- "+keyword+" *****"+contacts.getBody());
         model.addAttribute("contacts", contacts.getBody());
         return "user/search";
     }

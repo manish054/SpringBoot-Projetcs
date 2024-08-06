@@ -138,14 +138,12 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tr data-th-unless="${contacts == null}" class="row-span-5 bg-green-500">
-                                    <!-- <tr class="col-span-5 bg-white">
-                                        <th class="flex flex-row justify-center items-center">No Contacts Found</th>
-                                    </tr> -->
-                                    <td> No Contacts Found <i class="fa-regular fa-face-frown-open"></i></td>
-                                </tr>
+                                <tbody data-th-unless="${contacts == null}">
+                                    <tr><td>No Contacts Found</td></tr>
+                                </tbody>
                             </table>
                         </div>
+                        
                     </div>
                 </div>
             </div>
