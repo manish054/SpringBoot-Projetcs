@@ -72,13 +72,15 @@ public class ContactsController {
         ResponseEntity<Object> contacts = contactService.getContacts(useremail, page, size, sortBy, direction);
         model.addAttribute("contacts", contacts.getBody());
         return "user/contacts";
-    }
+        }
 
-    //search api
     @GetMapping("/search")
-    public String search(@PathVariable String field, @PathVariable String keyword){
+    public String search(Model model, @RequestParam String field, @RequestParam String keyword){
         System.out.println("***field***"+field);
         System.out.println("***keyword***"+keyword);
+        ResponseEntity<Object> contacts = contactService.search(field, keyword);
+        System.out.println("****Object****"+field+" --- "+keyword+" *****"+contacts.getBody().toString());
+        model.addAttribute("contacts", contacts.getBody());
         return "user/search";
     }
-}
+    }

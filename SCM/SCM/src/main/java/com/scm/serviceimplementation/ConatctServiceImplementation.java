@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.scm.entities.Contact;
 import com.scm.entities.User;
+import com.scm.helper.AppConstants;
 import com.scm.helper.Helper;
 import com.scm.repository.ContactRepo;
 import com.scm.repository.UserRepo;
@@ -113,15 +114,31 @@ public class ConatctServiceImplementation implements ContactService{
     }
 
     @Override
-    public ResponseEntity<Object> search(String name, String email, String phoneNumber) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+    public ResponseEntity<Object> search(String field, String keyword) {
+        List<Contact> contacts = null;
+        if(field.equals(AppConstants.SEARCH_BY_EMAIL)){
+           contacts = contactRepo.findByEmailId(keyword);
+           return new ResponseEntity<>(contacts, HttpStatus.FOUND);
+        }
+        if(field.equals(AppConstants.SEARCH_BY_NAME)){
+            contacts = contactRepo.findByName(keyword);
+        }
+        if(field.equals(AppConstants.SEARCH_BY_CONTACT)){
+            contacts = contactRepo.findByPhNum(keyword);
+        }
+
+        if(contacts != null){
+            return new ResponseEntity<>(contacts, HttpStatus.FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Override
     public ResponseEntity<Object> getByUserId(int userId) {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
+
+   
 
    
 

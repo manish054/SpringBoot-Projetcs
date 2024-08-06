@@ -11,6 +11,6 @@ public interface ContactService {
     ResponseEntity<Object> deleteContact(int id);
     ResponseEntity<Object> getContacts(String email, int page, int size, String sortBy, String direction);
     ResponseEntity<Object> getById(int id);
-    ResponseEntity<Object> search(String name, String email, String phoneNumber);
+    ResponseEntity<Object> search(String field, String keyword);
     ResponseEntity<Object> getByUserId(int userId);
 }
