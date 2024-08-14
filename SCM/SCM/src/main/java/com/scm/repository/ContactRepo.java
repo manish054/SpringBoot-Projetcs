@@ -13,7 +13,7 @@ import com.scm.entities.User;
 @Repository
 public interface ContactRepo extends JpaRepository<Contact, Integer> {
 
-    Page<Contact> findByUser(User user, Pageable pageable);
+    List<Contact> findByUser(User user);
 
     List<Contact> findByNameContaining(String name);
     List<Contact> findByEmailIdContaining(String emailId);

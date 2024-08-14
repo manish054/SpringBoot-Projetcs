@@ -95,11 +95,9 @@ public class ConatctServiceImplementation implements ContactService{
     }
 
     @Override
-    public ResponseEntity<Object> getContacts(String email, int page, int size, String sortBy, String direction) {
+    public ResponseEntity<Object> getContacts(String email) {
        User user = userRepo.findByEmailId(email).get();
-       Sort sort = direction.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
-       Pageable pageable = PageRequest.of(page, size, sort);
-       Page<Contact> contacts = contactRepo.findByUser(user,pageable);
+       List<Contact> contacts = contactRepo.findByUser(user);
        System.out.println("***Contacts***"+contacts.toString());
        return new ResponseEntity<>(contacts, HttpStatus.OK);
     }

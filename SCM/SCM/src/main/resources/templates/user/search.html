@@ -68,7 +68,7 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody data-th-if="${contacts != null}" th:each="contact :${contacts}">
+                                <tbody data-th-if="${contacts != null && !#lists.isEmpty(contacts)}" th:each="contact :${contacts}">
                                     <tr
                                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row"
@@ -138,7 +138,7 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tbody data-th-unless="${contacts == null}">
+                                <tbody data-th-unless="${contacts != null && !#lists.isEmpty(contacts)}">
                                     <tr><td>No Contacts Found</td></tr>
                                 </tbody>
                             </table>

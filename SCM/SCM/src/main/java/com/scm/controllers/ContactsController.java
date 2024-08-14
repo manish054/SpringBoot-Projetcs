@@ -62,15 +62,11 @@ public class ContactsController {
 
     //view contacts
     @GetMapping
-    public String viewContacts(
-        @RequestParam(value = "page", defaultValue = "0") int page,
-        @RequestParam(value = "size", defaultValue = "10") int size,
-        @RequestParam(value = "sortBy", defaultValue = "name") String sortBy,
-        @RequestParam(value = "direction", defaultValue = "asc") String direction,
-        Model model, Authentication authentication){
+    public String viewContacts(Model model, Authentication authentication){
         String useremail = Helper.getEmailOfLoggedInUser(authentication);
-        ResponseEntity<Object> contacts = contactService.getContacts(useremail, page, size, sortBy, direction);
+        ResponseEntity<Object> contacts = contactService.getContacts(useremail);
         model.addAttribute("contacts", contacts.getBody());
+        System.out.println("contacts***"+contacts.toString());
         return "user/contacts";
         }
 

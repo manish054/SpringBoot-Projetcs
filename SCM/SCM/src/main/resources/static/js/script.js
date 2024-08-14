@@ -5,7 +5,7 @@ function setTheme(theme){
 
 function getTheme(){
     var theme = localStorage.getItem("theme")
-    // console.log("theme---",theme);
+    console.log("theme---",theme);
     if(theme.length == 0)
         return "dark"
     return theme;
