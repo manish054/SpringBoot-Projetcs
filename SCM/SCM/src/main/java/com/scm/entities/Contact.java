@@ -14,6 +14,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 
 @Entity
@@ -52,6 +55,7 @@ public class Contact {
     private String cloudinaryImagePublicId;
     
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "contact")

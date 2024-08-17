@@ -112,17 +112,19 @@ public class ConatctServiceImplementation implements ContactService{
     }
 
     @Override
-    public ResponseEntity<Object> search(String field, String keyword) {
+    public ResponseEntity<Object> search(String field, String keyword, Authentication authentication) {
         List<Contact> contacts = null;
+        String loggedUser = Helper.getEmailOfLoggedInUser(authentication);
+        User user = userRepo.findByEmailId(loggedUser).get();
         if(field.equals(AppConstants.SEARCH_BY_EMAIL)){
-           contacts = contactRepo.findByEmailIdContaining(keyword);
+           contacts = contactRepo.findByUserAndEmailIdContaining(user, keyword);
            return new ResponseEntity<>(contacts, HttpStatus.FOUND);
         }
         if(field.equals(AppConstants.SEARCH_BY_NAME)){
-            contacts = contactRepo.findByNameContaining(keyword);
+            contacts = contactRepo.findByUserAndNameContaining(user, keyword);
         }
         if(field.equals(AppConstants.SEARCH_BY_CONTACT)){
-            contacts = contactRepo.findByPhNumContaining(keyword);
+            contacts = contactRepo.findByUserAndPhNumContaining(user, keyword);
         }
 
         if(contacts != null){

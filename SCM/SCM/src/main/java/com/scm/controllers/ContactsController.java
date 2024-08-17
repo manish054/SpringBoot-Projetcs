@@ -1,7 +1,5 @@
 package com.scm.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -10,13 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.scm.entities.Contact;
-import com.scm.entities.User;
 import com.scm.helper.Helper;
 import com.scm.helper.Message;
 import com.scm.helper.MessageType;
@@ -71,14 +66,14 @@ public class ContactsController {
         }
 
     @GetMapping("/search")
-    public String search(Model model, @RequestParam String field, @RequestParam String keyword){
+    public String search(Model model, @RequestParam String field, @RequestParam String keyword, Authentication authentication){
         System.out.println("***field***"+field);
         System.out.println("***keyword***"+keyword);
         if(field==null || keyword ==null){
             return "redirect:/user/contacts/search";
         }
         
-        ResponseEntity<Object> contacts = contactService.search(field, keyword);
+        ResponseEntity<Object> contacts = contactService.search(field, keyword, authentication);
         System.out.println("****Object****"+field+" --- "+keyword+" *****"+contacts.getBody());
         model.addAttribute("contacts", contacts.getBody());
         return "user/search";

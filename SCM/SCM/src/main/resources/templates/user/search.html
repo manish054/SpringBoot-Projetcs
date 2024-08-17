@@ -138,10 +138,14 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tbody data-th-unless="${contacts != null && !#lists.isEmpty(contacts)}">
+                                <!-- <tbody data-th-unless="${contacts != null && !#lists.isEmpty(contacts)}">
                                     <tr><td>No Contacts Found</td></tr>
-                                </tbody>
+                                </tbody> -->
                             </table>
+                            <p data-th-unless="${contacts != null && !#lists.isEmpty(contacts)}"
+                            class="text-center text-2xl">
+                                No Contacts Found
+                            </p>
                         </div>
                         
                     </div>
