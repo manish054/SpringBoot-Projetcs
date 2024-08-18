@@ -66,4 +66,33 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("contactModal is not initialized");
     }
   };
+
+   window.loadContactData = (id) =>{
+    console.log("--id---",id);
+    fetch(`http://localhost:8080/user/api/contacts/${id}`)
+    .then(async(response) =>{
+      const data = await response.json();
+      console.log("data---",data);
+      document.querySelector('#contact_name').innerHTML = data.name
+      if(data.favourite){
+        document.querySelector('#favourite').innerHTML += `<i class="fa-solid fa-star text-yellow-500"></i>`
+      }else{
+        document.querySelector('#favourite').innerHTML += `<i class="fa-regular fa-star"></i>`
+      }
+      
+      document.querySelector('#contact_image').src = data.pic
+      document.querySelector("#contact_email").innerHTML = data.emailId
+      document.querySelector("#contact_phone").innerHTML = data.phNum
+      document.querySelector("#contact_about").innerHTML = data.about
+      document.querySelector("#contact_address").innerHTML = data.address
+      document.querySelector("#contact_website").innerHTML = data.websiteLink
+      document.querySelector("#contact_linkedIn").innerHTML = data.linkedInLink
+      document.querySelector("#weblink").href = data.websiteLink
+      document.querySelector("#linkedIn").href = data.linkedInLink
+      return data;
+    }).catch((error) =>{
+      console.log(error);
+      
+    })
+  }
 });
