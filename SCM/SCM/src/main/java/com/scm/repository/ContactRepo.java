@@ -15,9 +15,9 @@ public interface ContactRepo extends JpaRepository<Contact, Integer> {
 
     List<Contact> findByUser(User user);
 
-    List<Contact> findByUserAndNameContaining(User user, String name);
-    List<Contact> findByUserAndEmailIdContaining(User user, String emailId);
-    List<Contact> findByUserAndPhNumContaining(User user, String phNum);
+    List<Contact> findByUserAndNameContainingIgnoreCase(User user, String name);
+    List<Contact> findByUserAndEmailIdContainingIgnoreCase(User user, String emailId);
+    List<Contact> findByUserAndPhNumContainingIgnoreCase(User user, String phNum);
 
     // @Query("SELECT c FROM Contact c WHERE c.user.id :=userId")
     // List<Contact> findByUserId(@Param("userId") int userId);

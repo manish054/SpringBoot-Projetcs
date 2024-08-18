@@ -75,9 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("data---",data);
       document.querySelector('#contact_name').innerHTML = data.name
       if(data.favourite){
-        document.querySelector('#favourite').innerHTML += `<i class="fa-solid fa-star text-yellow-500"></i>`
+        document.querySelector('#favourite').innerHTML = `<i class="fa-solid fa-star text-yellow-500"></i>`
       }else{
-        document.querySelector('#favourite').innerHTML += `<i class="fa-regular fa-star"></i>`
+        document.querySelector('#favourite').innerHTML = `<i class="fa-regular fa-star"></i>`
       }
       
       document.querySelector('#contact_image').src = data.pic

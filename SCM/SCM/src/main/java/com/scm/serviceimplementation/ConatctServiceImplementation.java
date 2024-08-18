@@ -117,14 +117,14 @@ public class ConatctServiceImplementation implements ContactService{
         String loggedUser = Helper.getEmailOfLoggedInUser(authentication);
         User user = userRepo.findByEmailId(loggedUser).get();
         if(field.equals(AppConstants.SEARCH_BY_EMAIL)){
-           contacts = contactRepo.findByUserAndEmailIdContaining(user, keyword);
+           contacts = contactRepo.findByUserAndEmailIdContainingIgnoreCase(user, keyword);
            return new ResponseEntity<>(contacts, HttpStatus.FOUND);
         }
         if(field.equals(AppConstants.SEARCH_BY_NAME)){
-            contacts = contactRepo.findByUserAndNameContaining(user, keyword);
+            contacts = contactRepo.findByUserAndNameContainingIgnoreCase(user, keyword);
         }
         if(field.equals(AppConstants.SEARCH_BY_CONTACT)){
-            contacts = contactRepo.findByUserAndPhNumContaining(user, keyword);
+            contacts = contactRepo.findByUserAndPhNumContainingIgnoreCase(user, keyword);
         }
 
         if(contacts != null){

@@ -132,9 +132,9 @@
                                             <a href="#"
                                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i
                                                     class="fa-solid fa-trash-can text-green-400 px-2 hover:text-yellow-300"></i></a>
-                                            <a href="#"
-                                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i
-                                                    class="fa-solid fa-eye text-green-400 hover:text-yellow-300"></i></a>
+                                                    <button data-modal-target="default-modal" data-modal-toggle="default-modal" type="button"
+                                                    th:onclick="loadContactData([[${contact.id}]])" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                                     <i class="fa-solid fa-eye text-green-400 hover:text-yellow-300"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -151,12 +151,15 @@
                     </div>
                 </div>
             </div>
+            <div data-th-replace="~{user/viewContactProfile :: profileCard}">
+                <!-- <p class="text-5xl">Here</p> -->
+            </div>
         </div>
     </div>
     <script>
         console.log("Search");
     </script>
-    <script data-th-src="@{'/js/admin.js'}"></script>
+    <script data-th-src="@{'/js/viewContactProfile.js'}"></script>
 </body>
 
 </html>
