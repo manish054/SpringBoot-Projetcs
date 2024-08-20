@@ -129,9 +129,9 @@
                                             <a href="#"
                                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i
                                                     class="fa-regular fa-pen-to-square text-green-400  px-2 hover:text-yellow-300"></i></a>
-                                            <a href="#"
+                                            <button th:onclick="deleteContact([[${contact.id}]])"
                                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i
-                                                    class="fa-solid fa-trash-can text-green-400 px-2 hover:text-yellow-300"></i></a>
+                                                    class="fa-solid fa-trash-can text-green-400 px-2 hover:text-yellow-300"></i></button>
                                             <button data-modal-target="default-modal" data-modal-toggle="default-modal" type="button"
                                                th:onclick="loadContactData([[${contact.id}]])" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                                 <i class="fa-solid fa-eye text-green-400 hover:text-yellow-300"></i></button>

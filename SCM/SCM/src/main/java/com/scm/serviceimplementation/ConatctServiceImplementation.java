@@ -88,7 +88,9 @@ public class ConatctServiceImplementation implements ContactService{
     public ResponseEntity<Object> deleteContact(int id) {
         Contact contact = contactRepo.findById(id).get();
         if(contact != null){
+            System.out.println("***Contact***"+contact.getName());
             contactRepo.delete(contact);
+            System.out.println("***Here***");
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

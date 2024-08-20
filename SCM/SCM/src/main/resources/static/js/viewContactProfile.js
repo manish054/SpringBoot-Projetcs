@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("viewContactProfile");
-
+  const baseURL = "http://localhost:8080"
   const viewContactModal = document.getElementById("view_contact_profile");
   console.log(viewContactModal);
 
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
    window.loadContactData = (id) =>{
     console.log("--id---",id);
-    fetch(`http://localhost:8080/user/api/contacts/${id}`)
+    fetch(`${baseURL}/user/api/contacts/${id}`)
     .then(async(response) =>{
       const data = await response.json();
       console.log("data---",data);
@@ -94,5 +94,22 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(error);
       
     })
+  }
+
+  window.deleteContact = (id) =>{
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const url = `${baseURL}/user/contacts/delete/${id}`
+        window.location.replace(url);
+      }
+    });
   }
 });
