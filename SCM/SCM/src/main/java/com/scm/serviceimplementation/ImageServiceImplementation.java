@@ -20,9 +20,6 @@ public class ImageServiceImplementation implements ImageService{
 
     @Override
     public String uploadImage(MultipartFile profilePic, String filename) {
-       
-        // String filename = UUID.randomUUID().toString();
-       
         try {
             byte[] data = new byte[profilePic.getInputStream().available()];
             profilePic.getInputStream().read(data);
@@ -33,8 +30,7 @@ public class ImageServiceImplementation implements ImageService{
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }
-        
+        } 
         
     }
 

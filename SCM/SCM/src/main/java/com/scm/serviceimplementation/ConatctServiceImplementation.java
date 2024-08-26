@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.scm.entities.Contact;
 import com.scm.entities.User;
@@ -45,6 +46,7 @@ public class ConatctServiceImplementation implements ContactService{
             String filename = UUID.randomUUID().toString();
             System.out.println("file info : {}"+contactForm.getProfilePic().getOriginalFilename());
             String fileUrl = imageService.uploadImage(contactForm.getProfilePic(), filename);
+            System.out.println("---fileUrl---"+fileUrl);
             Contact contact = new Contact();
             contact.setUser(user);
             contact.setName(contactForm.getName());
@@ -55,8 +57,12 @@ public class ConatctServiceImplementation implements ContactService{
             contact.setFavourite(contactForm.getFavourite());
             contact.setWebsiteLink(contactForm.getWebsite().length() == 0 ? null : contactForm.getWebsite());
             contact.setLinkedInLink(contactForm.getLinkedIn().length() == 0 ? null : contactForm.getLinkedIn());
-            contact.setPic(fileUrl);
-            contact.setCloudinaryImagePublicId(filename);
+            if(fileUrl == null){
+                contact.setPic("https://w7.pngwing.com/pngs/177/551/png-transparent-user-interface-design-computer-icons-default-stephen-salazar-graphy-user-interface-design-computer-wallpaper-sphere-thumbnail.png");
+            }else{
+                contact.setPic(fileUrl);
+            }
+            contact.setCloudinaryImagePublicId(contact.getCloudinaryImagePublicId());
             contactRepo.save(contact);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }catch(Exception e){
@@ -77,7 +83,15 @@ public class ConatctServiceImplementation implements ContactService{
             contact.setFavourite(contactForm.getFavourite());
             contact.setWebsiteLink(contactForm.getWebsite().length() == 0 ? null : contactForm.getWebsite());
             contact.setLinkedInLink(contactForm.getLinkedIn().length() == 0 ? null : contactForm.getLinkedIn());
-            contact.setPic("https://w7.pngwing.com/pngs/177/551/png-transparent-user-interface-design-computer-icons-default-stephen-salazar-graphy-user-interface-design-computer-wallpaper-sphere-thumbnail.png");
+            if(contactForm.getProfilePic() != null && !contactForm.getProfilePic().isEmpty()){
+                String filename = UUID.randomUUID().toString();
+                String fileUrl = imageService.uploadImage(contactForm.getProfilePic(), filename);
+                contact.setPic(fileUrl);
+                contact.setCloudinaryImagePublicId(fileUrl);
+            }else{
+                contact.setPic(contact.getPic());
+                contact.setCloudinaryImagePublicId(contact.getCloudinaryImagePublicId());
+            }
             contactRepo.save(contact);
             return new ResponseEntity<>(HttpStatus.OK);
         }
