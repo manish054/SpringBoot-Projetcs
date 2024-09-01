@@ -21,4 +21,6 @@ public interface UserService{
     ResponseEntity<Object> getAllUser();
 
     ResponseEntity<Object> findByEmail(String email);
+
+    ResponseEntity<Object> findByEmailToken(String token);
 }

@@ -63,7 +63,7 @@ public class Controllers {
             return "signup";
         }
         uServiceImplementation.saveUser(userForm);
-        Message message = Message.builder().content("Account Created !!! Thank You").type(MessageType.green).build();
+        Message message = Message.builder().content("Account Created, Verification Mail Sent").type(MessageType.green).build();
         session.setAttribute("message", message);
         return "redirect:/signup";
     }

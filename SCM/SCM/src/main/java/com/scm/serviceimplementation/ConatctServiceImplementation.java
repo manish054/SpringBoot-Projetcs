@@ -114,7 +114,7 @@ public class ConatctServiceImplementation implements ContactService{
     public ResponseEntity<Object> getContacts(String email) {
        User user = userRepo.findByEmailId(email).get();
        List<Contact> contacts = contactRepo.findByUser(user);
-       System.out.println("***Contacts***"+contacts.toString());
+    //    System.out.println("***Contacts***"+contacts.toString());
        return new ResponseEntity<>(contacts, HttpStatus.OK);
     }
 

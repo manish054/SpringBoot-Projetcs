@@ -60,7 +60,7 @@ public class User implements UserDetails{
     private boolean enabled = false;
     private boolean emailVerified = false;
     private boolean phoneNumVerified = false;
-
+    private String emailToken;
     private Providers provider = Providers.SELF;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)

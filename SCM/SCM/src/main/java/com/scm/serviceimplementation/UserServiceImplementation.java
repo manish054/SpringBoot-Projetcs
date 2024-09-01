@@ -2,6 +2,7 @@ package com.scm.serviceimplementation;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.scm.entities.Providers;
 import com.scm.entities.User;
 import com.scm.helper.AppConstants;
+import com.scm.helper.Helper;
 import com.scm.repository.UserRepo;
 import com.scm.service.UserService;
 import com.scm.userform.UserForm;
@@ -25,6 +27,9 @@ public class UserServiceImplementation implements UserService{
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private EmailServiceImplementation emailServiceImplementation;
+
     @Override
     public ResponseEntity<Object> saveUser(UserForm userForm) {
         User newUser =new User();
@@ -37,7 +42,13 @@ public class UserServiceImplementation implements UserService{
         newUser.setProfilePic("https://w7.pngwing.com/pngs/177/551/png-transparent-user-interface-design-computer-icons-default-stephen-salazar-graphy-user-interface-design-computer-wallpaper-sphere-thumbnail.png");
         newUser.setRoleList(List.of(AppConstants.ROLE_USER));
         newUser.setProvider(Providers.SELF);
+        
+        String emailToken = UUID.randomUUID().toString();
+        String emailLink= Helper.getEmailVerificationLink(emailToken);
+        emailServiceImplementation.sendEmail(newUser.getEmailId(), "SCM Account Verification", emailLink);
+        newUser.setEmailToken(emailToken);
         userRepo.save(newUser);
+        
         return new ResponseEntity<>("",HttpStatus.CREATED);
     }
 
@@ -118,6 +129,20 @@ public class UserServiceImplementation implements UserService{
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+    @Override
+    public ResponseEntity<Object> findByEmailToken(String token){
+        User user = userRepo.findByEmailToken(token).orElse(null);
+        if(user != null){
+            if(user.getEmailToken().equals(token)){
+                user.setEmailVerified(true);
+                user.setEnabled(true);
+                userRepo.save(user);
+                return new ResponseEntity<>(user, HttpStatus.FOUND);
+            }
+            
+        }
+        return new ResponseEntity<>(user,HttpStatus.NOT_FOUND);
+    }
     
 
 }
