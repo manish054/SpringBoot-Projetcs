@@ -1,0 +1,12 @@
+bash command for running multiple instances of a service
+
+Note
+* apache maven must be installed and path should be configured in System variables
+* need to go to directory in which pom.xml is directly present
+
+//if using power shell then need to add --% so that it can be pass a whole without parsing
+mvn --% spring-boot:run -Dspring-boot.run.arguments="--server.port=8001"
+
+//if using through cmd prompt in vs configured
+mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=8002"
+

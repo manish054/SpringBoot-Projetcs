@@ -1,0 +1,32 @@
+currency exchange service
+http://localhost:8000/currency-exchange/from/USD/to/INR
+
+currency conversion service
+http://localhost:8100/currency-conversion/from/USD/to/INR/qunatity/10
+http://localhost:8100/currency-conversion-feign/from/EUR/to/INR/qunatity/10
+
+Eureka
+http://localhost:8761/
+
+API Gateway
+http://localhost:8765/
+http://localhost:8765/CURRENCY-EXCHANGE/currency-exchange/from/USD/to/INR
+http://localhost:8765/CURRENCY-CONVERSION/currency-conversion/from/USD/to/INR/qunatity/10
+http://localhost:8765/CURRENCY-CONVERSION/currency-conversion-feign/from/EUR/to/INR/qunatity/10
+
+we have enabled this in api-gateway's application.properties i.e.,
+spring.cloud.gateway.server.webflux.discovery.locator.lower-case-service-id=true
+now we can write the servies name
+in lowercase like
+http://localhost:8765/currency-exchange/currency-exchange/from/USD/to/INR
+http://localhost:8765/currency-conversion/currency-conversion/from/USD/to/INR/qunatity/10
+http://localhost:8765/currency-conversion/currency-conversion-feign/from/EUR/to/INR/qunatity/10
+
+to make urls look simple, we made configuration in ApiGatewayConfig.java and 
+disabled the route locator in application properties.
+http://localhost:8765/currency-exchange/from/USD/to/INR
+http://localhost:8765/currency-conversion/from/USD/to/INR/qunatity/10
+http://localhost:8765/currency-conversion-feign/from/USD/to/INR/qunatity/10
+
+if we want to redirect the below uri to feign
+http://localhost:8765/currency-conversion-new/from/USD/to/INR/qunatity/10
